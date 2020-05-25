@@ -16,7 +16,7 @@ Inspired from Github's [Pull Panda](https://pullreminders.com/)
 Create a `.env` file with the following configuration
 ```
 USERNAME=<your bitbucket server username>
-PASSWORD=<your bitbucket server password> 
+PASSWORD=<your bitbucket server password>
 PROJECT_NAME=<your bitbucket server project name>
 REPO_NAME=<your bitbucket server repository name>
 API_CALL_INTERVAL=<interval between each API call in milliseconds>
@@ -32,6 +32,12 @@ BITBUCKET_TO_SLACK_MAP={"platypus_is_cool@zoo.com":"mr_platypus"}
 ## Quick Start
 Before this, ensure that your [configurations](#configuration) are set
 ```
+# development
 npm install
 npm run dev
+
+# production
+npm install
+npm run build
+npm start
 ```
