@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tan Yi Long",
