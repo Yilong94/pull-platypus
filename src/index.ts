@@ -30,7 +30,7 @@ const bitbucketHelper = new BitbucketHelper({ authOptions, serverOptions });
 const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
 
 // Main
-const main = async function () {
+const main = async function (): Promise<void> {
   try {
     const allPrMeta = await bitbucketHelper.getAllPrMeta();
     const allPrActivities = await Promise.all(
@@ -101,4 +101,4 @@ const main = async function () {
   }
 };
 
-exports.sendBitbucketPullReminder = main;
+export default main;
