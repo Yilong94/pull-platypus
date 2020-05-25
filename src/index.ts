@@ -14,7 +14,7 @@ const authOptions = {
 };
 
 const serverOptions = {
-  baseUrl: "https://bitbucket.ship.gov.sg",
+  baseUrl: process.env.SERVER_BASE_URL,
   headers: {},
   options: {
     timeout: 5000,
