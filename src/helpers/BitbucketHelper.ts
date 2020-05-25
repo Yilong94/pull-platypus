@@ -18,8 +18,6 @@ interface BitbucketHelperOptions {
 }
 
 class BitbucketHelper {
-  private username: string;
-  private password: string;
   private projectName: string;
   private repoName: string;
   private client: BitbucketServer;
@@ -30,8 +28,6 @@ class BitbucketHelper {
       serverOptions,
     } = options;
 
-    this.username = username;
-    this.password = password;
     this.projectName = projectName;
     this.repoName = repoName;
 
