@@ -22,9 +22,9 @@ jobs:
       - name: zip
         run: |
           mkdir temp
-          cp ./node_modules temp/node_modules
-          cp ./build temp/build
-          cp ./index.js temp/index.js
+          cp -r ./node_modules temp/node_modules
+          cp -r ./build temp/build
+          cp -r ./index.js temp/index.js
           cd temp
           zip -qq -r ../bundle.zip *
           rm -rf temp
