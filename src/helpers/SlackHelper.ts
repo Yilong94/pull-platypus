@@ -39,7 +39,8 @@ class SlackHelper {
   }
 
   private getSlackUser(bitbucketUser: string): string {
-    return this.bitbucketToSlackMap[bitbucketUser];
+    const slackUser = this.bitbucketToSlackMap[bitbucketUser];
+    return slackUser ? slackUser : bitbucketUser;
   }
 
   public genMessage(
