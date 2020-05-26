@@ -111,8 +111,8 @@ class SlackHelper {
       case PullRequestStatus.APPROVED:
         displayStatus = "Approved :star:";
         break;
-      case PullRequestStatus.REJECTED:
-        displayStatus = "Rejected :exclamation:";
+      case PullRequestStatus.UNAPPROVED:
+        displayStatus = "Unapproved :exclamation:";
         break;
       case PullRequestStatus.NEEDS_WORK:
         displayStatus = "Needs work :sweat_drops:";

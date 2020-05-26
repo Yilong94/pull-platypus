@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
 import BitbucketHelper from "./helpers/BitbucketHelper";
 import SlackHelper from "./helpers/SlackHelper";
+
+dotenv.config();
 
 // Configuration
 const webhookUrl = process.env.WEBHOOK_URL;
@@ -10,14 +13,12 @@ const main = async (event: any) => {
   // TOOD: verification of bitbucket webhook secret
 
   const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
-  const { body } = event;
-  if (body) {
-    const payload = JSON.parse(body);
-
+  const { body: payload } = JSON.parse(event);
+  if (payload) {
     // Extract data from webhook
     const data = BitbucketHelper.getData(payload);
     // Send slack emssage
-    await slackHelper.sendMessage(payload, data);
+    await slackHelper.sendMessage(payload.eventKey, data);
   }
 
   return {

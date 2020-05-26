@@ -7,9 +7,9 @@ export enum PullRequestEvent {
 }
 
 export enum PullRequestStatus {
-  APPROVED = "approved",
-  NEEDS_WORK = "needsWork",
-  REJECTED = "rejected",
+  APPROVED = "APPROVED",
+  NEEDS_WORK = "NEEDS_WORK",
+  UNAPPROVED = "UNAPPROVED",
 }
 
 export interface PullRequestMeta {
