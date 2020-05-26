@@ -10,6 +10,7 @@ const bitbucketToSlackMap = JSON.parse(process.env.BITBUCKET_TO_SLACK_MAP);
 
 // Main
 const main = async (event: any) => {
+  console.log("data inside", event);
   // TOOD: verification of bitbucket webhook secret
 
   const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
