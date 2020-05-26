@@ -1,5 +1,7 @@
 name: deploy to lambda
-on: [push]
+on:
+  branches:
+    - v2
 jobs:
   deploy_source:
     name: build and deploy lambda
