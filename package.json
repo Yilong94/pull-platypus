@@ -4,7 +4,7 @@
   "description": "Pull request reminder for Bitbucket with Slack integration",
   "main": "src/index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "dev": "ts-node src/v2/index.ts",
     "build": "tsc",
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
