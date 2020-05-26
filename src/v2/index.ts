@@ -6,13 +6,20 @@ const webhookUrl = process.env.WEBHOOK_URL;
 const bitbucketToSlackMap = JSON.parse(process.env.BITBUCKET_TO_SLACK_MAP);
 
 // Main
-const main = (event) => {
-  const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
+const main = async (event: any) => {
+  // TOOD: verification of bitbucket webhook secret
 
-  // Extract data from webhook
-  const data = BitbucketHelper.getData(event);
-  // Send slack emssage
-  slackHelper.sendMessage(event, data);
+  const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
+  const { body } = event;
+  if (body) {
+    const payload = JSON.parse(body);
+
+    // Extract data from webhook
+    const data = BitbucketHelper.getData(payload);
+    // Send slack emssage
+    await slackHelper.sendMessage(payload, data);
+  }
+  return 200;
 };
 
 export default main;
