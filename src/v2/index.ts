@@ -23,7 +23,7 @@ const main = async (event: any) => {
   return {
     isBase64Encoded: false,
     statusCode: 200,
-    body: {},
+    body: JSON.stringify({}),
   };
 };
 
