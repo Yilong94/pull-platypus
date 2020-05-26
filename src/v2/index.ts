@@ -19,7 +19,12 @@ const main = async (event: any) => {
     // Send slack emssage
     await slackHelper.sendMessage(payload, data);
   }
-  return 200;
+
+  return {
+    isBase64Encoded: false,
+    statusCode: 200,
+    body: {},
+  };
 };
 
 export default main;
