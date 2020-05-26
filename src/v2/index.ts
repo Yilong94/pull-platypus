@@ -14,8 +14,9 @@ const main = async (event: any) => {
   // TOOD: verification of bitbucket webhook secret
 
   const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
-  const { body: payload } = event;
-  if (payload) {
+  const { body } = event;
+  if (body) {
+    const payload = JSON.parse(body);
     // Extract data from webhook
     const data = BitbucketHelper.getData(payload);
     // Send slack emssage
