@@ -101,6 +101,7 @@ class SlackHelper {
   ): string {
     const {
       repoName,
+      projectName,
       prTitle,
       prLink,
       reviewerId,
@@ -109,20 +110,21 @@ class SlackHelper {
     let displayStatus: string;
     switch (status) {
       case PullRequestStatus.APPROVED:
-        displayStatus = "Approved :star:";
+        displayStatus = "Your PR has been approved :star:";
         break;
       case PullRequestStatus.UNAPPROVED:
-        displayStatus = "Unapproved :exclamation:";
+        displayStatus = "Your PR has been unapproved :exclamation:";
         break;
       case PullRequestStatus.NEEDS_WORK:
-        displayStatus = "Needs work :sweat_drops:";
+        displayStatus = "Your PR needs work :sweat_drops:";
         break;
     }
     const message = buildMessage({
       messageTitle: PR_REVIEW_STATUS,
       prTitle,
       repoName,
-      mainMessage: `Status: ${displayStatus}`,
+      projectName,
+      mainMessage: `${displayStatus}`,
       by: this.getSlackUser(reviewerId),
       link: prLink,
     });
@@ -135,6 +137,7 @@ class SlackHelper {
   ): string {
     const {
       repoName,
+      projectName,
       prTitle,
       prLink,
       commenterId,
@@ -144,7 +147,8 @@ class SlackHelper {
       messageTitle: PR_COMMENT,
       prTitle,
       repoName,
-      mainMessage: `Comment :speech_balloon:: ${text}`,
+      projectName,
+      mainMessage: `${text} :speech_balloon:`,
       by: this.getSlackUser(commenterId),
       link: prLink,
     });
@@ -155,11 +159,19 @@ class SlackHelper {
   private genSlackMessageRequest(
     slackMessageRequest: SlackMessageRequest
   ): string {
-    const { repoName, prTitle, prLink, authorId } = slackMessageRequest;
+    const {
+      repoName,
+      projectName,
+      prTitle,
+      prLink,
+      authorId,
+    } = slackMessageRequest;
     const message = buildMessage({
       messageTitle: PR_REVIEW_REQUEST,
       prTitle,
       repoName,
+      projectName,
+      mainMessage: `A PR has been opened for your review :bow:`,
       by: this.getSlackUser(authorId),
       link: prLink,
     });

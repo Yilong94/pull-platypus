@@ -6,7 +6,8 @@ interface BuildMessage {
   messageTitle: string;
   prTitle: string;
   repoName: string;
-  mainMessage?: string;
+  projectName: string;
+  mainMessage: string;
   by: string;
   link: string;
 }
@@ -15,15 +16,16 @@ export const buildMessage = ({
   messageTitle,
   prTitle,
   repoName,
+  projectName,
   mainMessage,
   by,
   link,
 }: BuildMessage): string => {
-  const message = `*${messageTitle}  (${repoName})*
-${prTitle}${mainMessage ? `\n${mainMessage}` : ""}
-By: <@${by}>
-
-
-> Link: ${link}`;
+  const message = `*${messageTitle}*
+><${link}|${prTitle}>
+>${projectName} – ${repoName}
+>${mainMessage}
+>
+>By: <@${by}>`;
   return message;
 };

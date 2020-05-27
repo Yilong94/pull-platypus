@@ -14,6 +14,7 @@ export enum PullRequestStatus {
 
 export interface PullRequestMeta {
   repoName: string;
+  projectName: string;
   prTitle: string;
   prLink: string;
   authorId: string;

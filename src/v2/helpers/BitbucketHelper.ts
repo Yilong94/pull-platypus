@@ -14,7 +14,10 @@ class BitbucketHelper {
       pullRequest: {
         title: prTitle,
         fromRef: {
-          repository: { name: repoName },
+          repository: {
+            name: repoName,
+            project: { name: projectName },
+          },
         },
         author: {
           user: { emailAddress: authorId },
@@ -25,7 +28,7 @@ class BitbucketHelper {
       },
     } = event;
 
-    return { repoName, prTitle, prLink, authorId };
+    return { repoName, projectName, prTitle, prLink, authorId };
   }
 
   private static getStatusData(
