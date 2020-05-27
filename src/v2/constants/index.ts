@@ -29,3 +29,7 @@ export const buildMessage = ({
 >By: <@${by}>`;
   return message;
 };
+
+export const ignoreComments = [
+  /Please ensure the following tasks are completed before merging/,
+];

@@ -7,6 +7,7 @@ import {
   PullRequestEvent,
   PullRequestData,
 } from "../interfaces/PullRequest";
+import { ignoreComments } from "../constants";
 
 class BitbucketHelper {
   private static getMetaData(event: any): SlackMessageMeta {
@@ -46,13 +47,16 @@ class BitbucketHelper {
 
   private static getCommentData(
     event: any
-  ): Omit<PullRequestComment, keyof PullRequestMeta> {
+  ): Omit<PullRequestComment, keyof PullRequestMeta> | undefined {
     const {
       comment: {
         text,
         author: { emailAddress: commenterId },
       },
     } = event;
+
+    // Return undefined if comment is to be ignored
+    if (ignoreComments.some((regex) => regex.test(text))) return;
 
     return { commenterId, text };
   }
@@ -73,7 +77,7 @@ class BitbucketHelper {
     return { reviewerIds };
   }
 
-  public static getData(event: any): PullRequestData {
+  public static getData(event: any): PullRequestData | undefined {
     const { eventKey }: { eventKey: PullRequestEvent } = event;
 
     const metaData = this.getMetaData(event);
@@ -92,6 +96,7 @@ class BitbucketHelper {
         mainData = this.getOpenedData(event);
         break;
     }
+    if (!mainData) return;
 
     const data = { ...metaData, ...mainData };
     return data;

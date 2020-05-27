@@ -29,8 +29,9 @@ const main = async (event: any) => {
       const payload = JSON.parse(body);
       // Extract data from webhook
       const data = BitbucketHelper.getData(payload);
-      // Send slack emssage
-      await slackHelper.sendMessage(payload.eventKey, data);
+
+      // Send slack message
+      if (data) await slackHelper.sendMessage(payload.eventKey, data);
 
       message = "Webhook call successful";
       response = {
