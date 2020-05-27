@@ -24,7 +24,7 @@ export const buildMessage = ({
   const message = `*${messageTitle}*
 ><${link}|${prTitle}>
 >${projectName} – ${repoName}
->${mainMessage}
+>${mainMessage.replace("\n", "\n>")}
 >
 >By: <@${by}>`;
   return message;
