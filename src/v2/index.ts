@@ -16,6 +16,7 @@ const main = async (event: any) => {
   const { headers, body } = event;
 
   // Authenticate with webhook secret
+  const hmacHeader = headers["X-Hub-Signature"].replace("sha256=", "");
   const hmac = crypto.createHmac("sha256", process.env.WEBHOOK_SECRET);
   hmac.update(body);
   console.log("hashed value", hmac.digest("hex"));
