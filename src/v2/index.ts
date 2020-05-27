@@ -20,9 +20,7 @@ const main = async (event: any) => {
   const hmac = crypto.createHmac("sha256", process.env.WEBHOOK_SECRET);
   hmac.update(body);
   const hmacHashed = hmac.digest("hex");
-  console.log("hashed value", hmacHashed, typeof hmac.digest("hex"));
-  console.log("x-hub-signature", hmacHeader, typeof hmacHeader);
-  console.log("comparison", hmacHashed !== hmacHeader);
+
   if (hmacHashed !== hmacHeader) {
     message = "Not authorized";
     response = {

@@ -41,11 +41,14 @@ class SlackHelper {
         await this.send(receivedUser[idx], msg);
       });
     } else if (
-      typeof message === "string" &&
+      typeof message === "object" &&
       typeof receivedUser === "string"
     ) {
       if (!receivedUser) throw new Error("User not found");
-      await this.send(receivedUser, message);
+
+      await this.send(receivedUser, message as IncomingWebhookSendArguments);
+    } else {
+      throw new Error("Message do not match with user");
     }
   }
 
