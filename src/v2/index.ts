@@ -19,9 +19,10 @@ const main = async (event: any) => {
   const hmacHeader = headers["X-Hub-Signature"].replace("sha256=", "");
   const hmac = crypto.createHmac("sha256", process.env.WEBHOOK_SECRET);
   hmac.update(body);
-  console.log("hashed value", hmac.digest("hex"));
-  console.log("x-hub-signature", headers["X-Hub-Signature"]);
-  if (hmac.digest("hex") !== headers["X-Hub-Signature"]) {
+  console.log("hashed value", hmac.digest("hex"), typeof hmac.digest("hex"));
+  console.log("x-hub-signature", hmacHeader, typeof hmacHeader);
+  console.log("comparison", hmac.digest("hex") !== hmacHeader);
+  if (hmac.digest("hex") !== hmacHeader) {
     message = "Not authorized";
     response = {
       isBase64Encoded: false,
