@@ -21,7 +21,7 @@ export const buildMessage = ({
 }: BuildMessage): string => {
   const message = `*${messageTitle}  (${repoName})*
 ${prTitle}${mainMessage ? `\n${mainMessage}` : ""}
-By: @${by}
+By: <@${by}>
 
 
 > Link: ${link}`;
