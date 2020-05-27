@@ -12,16 +12,17 @@ const bitbucketToSlackMap = JSON.parse(process.env.BITBUCKET_TO_SLACK_MAP);
 const main = async (event: any) => {
   // TOOD: verification of bitbucket webhook secret
 
-  let response;
+  let response, message: string;
   const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
   const { headers, body } = event;
 
   // Diagnostics check
   if (headers && headers["X-Event-Key"] === "diagnostics:ping") {
+    message = "Diagnostics check successful";
     response = {
       isBase64Encoded: false,
       statusCode: 200,
-      body: JSON.stringify({ message: "Diagnostics check successful" }),
+      body: JSON.stringify({ message }),
     };
   } else {
     try {
@@ -31,21 +32,23 @@ const main = async (event: any) => {
       // Send slack emssage
       await slackHelper.sendMessage(payload.eventKey, data);
 
+      message = "Webhook call successful";
       response = {
         isBase64Encoded: false,
         statusCode: 200,
-        body: JSON.stringify({ message: "Webhook call successful" }),
+        body: JSON.stringify({ message }),
       };
     } catch (err) {
-      console.log("Error: ", err);
+      message = "Webhook call failed";
       response = {
         isBase64Encoded: false,
         statusCode: 500,
-        body: JSON.stringify({ message: "Webhook call failed" }),
+        body: JSON.stringify({ message }),
       };
     }
   }
 
+  console.log(message);
   return response;
 };
 
