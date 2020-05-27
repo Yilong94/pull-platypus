@@ -23,7 +23,7 @@ const main = async (event: any) => {
   console.log("hashed value", hmacHashed, typeof hmac.digest("hex"));
   console.log("x-hub-signature", hmacHeader, typeof hmacHeader);
   console.log("comparison", hmacHashed !== hmacHeader);
-  if (hmac.digest("hex") !== hmacHeader) {
+  if (hmacHashed !== hmacHeader) {
     message = "Not authorized";
     response = {
       isBase64Encoded: false,
