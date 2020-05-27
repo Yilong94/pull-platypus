@@ -1,4 +1,4 @@
-import { IncomingWebhook } from "@slack/webhook";
+import { IncomingWebhook, IncomingWebhookSendArguments } from "@slack/webhook";
 import {
   PullRequestData,
   PullRequestEvent,
@@ -49,12 +49,16 @@ class SlackHelper {
     }
   }
 
-  private async send(user: string, text: string): Promise<void> {
+  private async send(
+    user: string,
+    message: IncomingWebhookSendArguments
+  ): Promise<void> {
     const webhook = new IncomingWebhook(this.webhookUrl, {
       channel: `@${user}`,
       username: "Pull Platypus",
     });
-    await webhook.send(text);
+
+    await webhook.send(message);
   }
 
   private getSlackUser(bitbucketUser: string): string {
@@ -65,8 +69,11 @@ class SlackHelper {
   private genMessage(
     prEvent: PullRequestEvent,
     prData: PullRequestData
-  ): { message: string | string[]; receivedUser: string | string[] } {
-    let message: string | string[];
+  ): {
+    message: IncomingWebhookSendArguments | IncomingWebhookSendArguments[];
+    receivedUser: string | string[];
+  } {
+    let message: IncomingWebhookSendArguments | IncomingWebhookSendArguments[];
     let receivedUser: string | string[];
 
     switch (prEvent) {
@@ -98,7 +105,7 @@ class SlackHelper {
 
   private genSlackMessageDecision(
     slackMessageDecision: SlackMessageDecision
-  ): string {
+  ): IncomingWebhookSendArguments {
     const {
       repoName,
       projectName,
@@ -134,7 +141,7 @@ class SlackHelper {
 
   private genSlackMessageComment(
     slackMessageComment: SlackMessageComment
-  ): string {
+  ): IncomingWebhookSendArguments {
     const {
       repoName,
       projectName,
@@ -158,7 +165,7 @@ class SlackHelper {
 
   private genSlackMessageRequest(
     slackMessageRequest: SlackMessageRequest
-  ): string {
+  ): IncomingWebhookSendArguments {
     const {
       repoName,
       projectName,

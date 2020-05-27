@@ -1,3 +1,5 @@
+import { IncomingWebhookSendArguments } from "@slack/webhook";
+
 export const PR_REVIEW_STATUS = "PR REVIEW STATUS";
 export const PR_COMMENT = "PR COMMENT";
 export const PR_REVIEW_REQUEST = "PR REVIEW REQUEST";
@@ -20,13 +22,25 @@ export const buildMessage = ({
   mainMessage,
   by,
   link,
-}: BuildMessage): string => {
-  const message = `*${messageTitle}*
+}: BuildMessage): IncomingWebhookSendArguments => {
+  const message = {
+    text: messageTitle,
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*${messageTitle}*
 ><${link}|${prTitle}>
 >${projectName} – ${repoName}
 >${mainMessage.replace("\n", "\n>")}
 >
->By: <@${by}>`;
+>By: <@${by}>`,
+        },
+      },
+    ],
+  };
+
   return message;
 };
 
