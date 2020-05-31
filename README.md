@@ -30,7 +30,7 @@ BITBUCKET_TO_SLACK_MAP={"platypus_is_cool@zoo.com":"mr_platypus"}
 ```
 
 ## Quick Start
-Before this, ensure that your [configurations](#configuration) are set
+Before this, ensure that your [configurations](#configuration) are set 
 ```
 # development
 npm install
