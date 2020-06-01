@@ -10,7 +10,7 @@ const webhookUrl = process.env.WEBHOOK_URL;
 const bitbucketToSlackMap = JSON.parse(process.env.BITBUCKET_TO_SLACK_MAP);
 
 // Main
-const main = async (event: any) => {
+export const main = async (event: any) => {
   let response, message: string;
   const slackHelper = new SlackHelper(webhookUrl, bitbucketToSlackMap);
   const { headers, body } = event;
@@ -67,5 +67,3 @@ const main = async (event: any) => {
   console.log(message);
   return response;
 };
-
-export default main;
