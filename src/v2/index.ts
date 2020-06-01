@@ -53,6 +53,7 @@ const main = async (event: any) => {
           body: JSON.stringify({ message }),
         };
       } catch (err) {
+        console.log(err);
         message = "Webhook call failed";
         response = {
           isBase64Encoded: false,
