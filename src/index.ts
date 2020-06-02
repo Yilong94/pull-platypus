@@ -21,46 +21,48 @@ const main = async (event: any) => {
   hmac.update(body);
   const hmacHashed = hmac.digest("hex");
 
-  if (hmacHashed !== hmacHeader) {
+  // Diagnostics check
+  if (headers && headers["X-Event-Key"] === "diagnostics:ping") {
+    message = "Diagnostics check successful";
+    response = {
+      isBase64Encoded: false,
+      statusCode: 200,
+      body: JSON.stringify({ message }),
+    };
+  }
+  // Not authorized
+  else if (hmacHashed !== hmacHeader) {
     message = "Not authorized";
     response = {
       isBase64Encoded: false,
       statusCode: 401,
       body: JSON.stringify({ message }),
     };
-  } else {
-    // Diagnostics check
-    if (headers && headers["X-Event-Key"] === "diagnostics:ping") {
-      message = "Diagnostics check successful";
+  }
+  // Authorized
+  else {
+    try {
+      const payload = JSON.parse(body);
+      // Extract data from webhook
+      const data = BitbucketHelper.getData(payload);
+
+      // Send slack message
+      if (data) await slackHelper.sendMessage(payload.eventKey, data);
+
+      message = "Webhook call successful";
       response = {
         isBase64Encoded: false,
         statusCode: 200,
         body: JSON.stringify({ message }),
       };
-    } else {
-      try {
-        const payload = JSON.parse(body);
-        // Extract data from webhook
-        const data = BitbucketHelper.getData(payload);
-
-        // Send slack message
-        if (data) await slackHelper.sendMessage(payload.eventKey, data);
-
-        message = "Webhook call successful";
-        response = {
-          isBase64Encoded: false,
-          statusCode: 200,
-          body: JSON.stringify({ message }),
-        };
-      } catch (err) {
-        console.log(err);
-        message = "Webhook call failed";
-        response = {
-          isBase64Encoded: false,
-          statusCode: 500,
-          body: JSON.stringify({ message }),
-        };
-      }
+    } catch (err) {
+      console.log(err);
+      message = "Webhook call failed";
+      response = {
+        isBase64Encoded: false,
+        statusCode: 500,
+        body: JSON.stringify({ message }),
+      };
     }
   }
 
