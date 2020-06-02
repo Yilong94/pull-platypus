@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import BitbucketHelper from "./helpers/BitbucketHelper";
 import SlackHelper from "./helpers/SlackHelper";
-import { awsParamStore } from "aws-param-store";
+import awsParamStore from "aws-param-store";
 
 enum Param {
   BITBUCKET_TO_SLACK_MAP = "BITBUCKET_TO_SLACK_MAP",
