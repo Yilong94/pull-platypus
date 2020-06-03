@@ -18,9 +18,13 @@ const main = async (event: any) => {
   const ssmPath = process.env.SSM_PATH;
   try {
     const parameters = await awsParamStore.getParametersByPath(ssmPath);
+    console.log("parameters", parameters);
     bitbucketToSlackMap = parameters[Param.BITBUCKET_TO_SLACK_MAP];
     webhookUrl = parameters[Param.WEBHOOK_URL];
     webhookSecret = parameters[Param.WEBHOOK_SECRET];
+    console.log("bitbucketToSlackMap", bitbucketToSlackMap);
+    console.log("webhookUrl", webhookUrl);
+    console.log("webhookSecret", webhookSecret);
 
     if (!bitbucketToSlackMap || !webhookUrl || !webhookSecret)
       throw new Error("Missing environment variables");
