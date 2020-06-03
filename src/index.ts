@@ -132,44 +132,4 @@ const main = async (event: any) => {
   return response;
 };
 
-(async () => {
-  const body = {
-    eventKey: "pr:reviewer:approved",
-    pullRequest: {
-      title: "Test title",
-      fromRef: {
-        repository: {
-          name: "test-repo",
-          project: "test-project",
-        },
-      },
-      author: {
-        user: {
-          emailAddress: "tan_yi_long@tech.gov.sg",
-        },
-      },
-      links: {
-        self: [{ href: "www.google.com" }],
-      },
-    },
-    participant: {
-      user: {
-        emailAddress: "tan_yi_long@tech.gov.sg",
-      },
-      status: "APPROVED",
-    },
-  };
-  const stringifiedBody = JSON.stringify(body);
-  const hmac = crypto.createHmac("sha256", process.env.WEBHOOK_SECRET);
-  hmac.update(stringifiedBody);
-  const hmacHashed = hmac.digest("hex");
-  const data = {
-    headers: {
-      "X-Hub-Signature": `sha256=${hmacHashed}`,
-    },
-    body: stringifiedBody,
-  };
-  main(data);
-})();
-
 export default main;
