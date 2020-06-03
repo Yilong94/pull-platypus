@@ -14,7 +14,8 @@
   "dependencies": {
     "@atlassian/bitbucket-server": "0.0.6",
     "@slack/webhook": "^5.0.3",
-    "aws-param-store": "^3.2.0"
+    "aws-param-store": "^3.2.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@types/aws-param-store": "^2.1.1",
