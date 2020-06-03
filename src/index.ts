@@ -14,7 +14,7 @@ enum Param {
 const filterParam = (paramName, parameters: any[]) => {
   let param = "";
   const filteredParam = parameters.filter(({ Name }) =>
-    Name.include(paramName)
+    Name.includes(paramName)
   );
   if (filteredParam.length > 0) {
     param = filteredParam[0].Value;
