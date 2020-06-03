@@ -9,6 +9,19 @@ enum Param {
   WEBHOOK_SECRET = "WEBHOOK_SECRET",
 }
 
+// Function to filter param list returned from AWS param store
+// and return the param value based on param name
+const filterParam = (paramName, parameters: any[]) => {
+  let param = "";
+  const filteredParam = parameters.filter(({ Name }) =>
+    Name.include(paramName)
+  );
+  if (filteredParam.length > 0) {
+    param = filteredParam[0].Value;
+  }
+  return param;
+};
+
 // Main
 const main = async (event: any) => {
   let message: string;
@@ -19,15 +32,13 @@ const main = async (event: any) => {
   // Use variables from aws param store
   if (ssmPath) {
     try {
-      bitbucketToSlackMap = awsParamStore.getParameterSync(
-        `${ssmPath}/${Param.BITBUCKET_TO_SLACK_MAP}`
-      ).Value;
-      webhookUrl = awsParamStore.getParameterSync(
-        `${ssmPath}/${Param.WEBHOOK_URL}`
-      ).Value;
-      webhookSecret = awsParamStore.getParameterSync(
-        `${ssmPath}/${Param.WEBHOOK_SECRET}`
-      ).Value;
+      const parameters = await awsParamStore.getParametersByPath(ssmPath);
+      bitbucketToSlackMap = filterParam(
+        Param.BITBUCKET_TO_SLACK_MAP,
+        parameters
+      );
+      webhookUrl = filterParam(Param.WEBHOOK_URL, parameters);
+      webhookSecret = filterParam(Param.WEBHOOK_SECRET, parameters);
     } catch (err) {
       message = "Internal Server Error";
       console.log(err);
