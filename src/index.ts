@@ -16,21 +16,39 @@ const main = async (event: any) => {
   // Configuration
   let bitbucketToSlackMap: string, webhookUrl: string, webhookSecret: string;
   const ssmPath = process.env.SSM_PATH;
-  try {
-    const parameters = await awsParamStore.getParametersByPath(ssmPath);
-    console.log("parameters", parameters);
-    bitbucketToSlackMap = parameters[Param.BITBUCKET_TO_SLACK_MAP];
-    webhookUrl = parameters[Param.WEBHOOK_URL];
-    webhookSecret = parameters[Param.WEBHOOK_SECRET];
-    console.log("bitbucketToSlackMap", bitbucketToSlackMap);
-    console.log("webhookUrl", webhookUrl);
-    console.log("webhookSecret", webhookSecret);
+  // Use variables from aws param store
+  if (ssmPath) {
+    try {
+      bitbucketToSlackMap = awsParamStore.getParameterSync(
+        `${ssmPath}/${Param.BITBUCKET_TO_SLACK_MAP}`
+      ).Value;
+      webhookUrl = awsParamStore.getParameterSync(
+        `${ssmPath}/${Param.WEBHOOK_URL}`
+      ).Value;
+      webhookSecret = awsParamStore.getParameterSync(
+        `${ssmPath}/${Param.WEBHOOK_SECRET}`
+      ).Value;
+    } catch (err) {
+      message = "Internal Server Error";
+      console.log(err);
+      console.log(message);
+      return {
+        isBase64Encoded: false,
+        statusCode: 500,
+        body: JSON.stringify({ message }),
+      };
+    }
+  }
+  // Use variables from .env file
+  else {
+    bitbucketToSlackMap = process.env[Param.BITBUCKET_TO_SLACK_MAP];
+    webhookUrl = process.env[Param.WEBHOOK_URL];
+    webhookSecret = process.env[Param.WEBHOOK_SECRET];
+  }
 
-    if (!bitbucketToSlackMap || !webhookUrl || !webhookSecret)
-      throw new Error("Missing environment variables");
-  } catch (err) {
+  if (!bitbucketToSlackMap || !webhookUrl || !webhookSecret) {
     message = "Internal Server Error";
-    console.log(err);
+    console.log("Environment variables not found");
     console.log(message);
     return {
       isBase64Encoded: false,
