@@ -2,7 +2,7 @@ name: deploy to lambda
 on:
   push:
     branches:
-      - use-ssm-param-store
+      - master
 jobs:
   deploy_source:
     name: build and deploy lambda
