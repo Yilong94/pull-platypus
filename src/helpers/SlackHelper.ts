@@ -78,17 +78,28 @@ class SlackHelper {
     switch (prData.type) {
       case PullRequestEvent.APPROVED:
       case PullRequestEvent.UNAPPROVED:
-      case PullRequestEvent.NEEDS_WORK:
+      case PullRequestEvent.NEEDS_WORK: {
         message = this.genSlackMessageDecision(prData);
         receivedUser = this.getSlackUser(prData.authorId);
         break;
+      }
 
-      case PullRequestEvent.COMMENTDS_ADDED:
-        message = this.genSlackMessageComment(prData);
-        receivedUser = this.getSlackUser(prData.authorId);
+      case PullRequestEvent.COMMENTDS_ADDED: {
+        const { authorId, commenterId, reviewerIds } = prData;
+        // No need to send notification to commenter
+        const receiverIds = [authorId, ...reviewerIds].filter(
+          (id) => id !== commenterId
+        );
+        message = Array(receiverIds.length).fill(
+          this.genSlackMessageComment(prData)
+        );
+        receivedUser = receiverIds.map((receiverId) =>
+          this.getSlackUser(receiverId)
+        );
         break;
+      }
 
-      case PullRequestEvent.OPENED:
+      case PullRequestEvent.OPENED: {
         const { reviewerIds, ...rest } = prData;
         message = reviewerIds.map((reviewerId) => {
           return this.genSlackMessageRequest({ ...rest, reviewerId });
@@ -97,6 +108,7 @@ class SlackHelper {
           this.getSlackUser(reviewerId)
         );
         break;
+      }
     }
 
     return { message, receivedUser };

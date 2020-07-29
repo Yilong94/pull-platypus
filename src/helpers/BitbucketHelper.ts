@@ -54,13 +54,20 @@ class BitbucketHelper {
         text,
         author: { emailAddress: commenterId },
       },
+      pullRequest: { reviewers: rawReviewers },
       eventKey,
     } = event;
+
+    const reviewerIds: string[] = rawReviewers.map(
+      ({ user: { emailAddress } }) => {
+        return emailAddress;
+      }
+    );
 
     // Return undefined if comment is to be ignored
     if (ignoreComments.some((regex) => regex.test(text))) return;
 
-    return { type: eventKey, commenterId, text };
+    return { type: eventKey, commenterId, text, reviewerIds };
   }
 
   private static getOpenedData(

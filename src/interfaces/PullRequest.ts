@@ -33,6 +33,7 @@ export interface PullRequestComment extends PullRequestMeta {
   type: PullRequestEvent.COMMENTDS_ADDED;
   commenterId: string;
   text: string;
+  reviewerIds: string[];
 }
 
 export interface PullRequestOpened extends PullRequestMeta {
