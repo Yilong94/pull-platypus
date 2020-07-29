@@ -103,6 +103,7 @@ const main = async (event: any) => {
   let response;
   try {
     const payload = JSON.parse(body);
+    console.log("Request Body: ", body);
     const slackHelper = new SlackHelper(
       webhookUrl,
       JSON.parse(bitbucketToSlackMap)
