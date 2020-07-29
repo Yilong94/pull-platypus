@@ -40,9 +40,10 @@ class BitbucketHelper {
         user: { emailAddress: reviewerId },
         status,
       },
+      eventKey,
     } = event;
 
-    return { reviewerId, status };
+    return { type: eventKey, reviewerId, status };
   }
 
   private static getCommentData(
@@ -53,12 +54,13 @@ class BitbucketHelper {
         text,
         author: { emailAddress: commenterId },
       },
+      eventKey,
     } = event;
 
     // Return undefined if comment is to be ignored
     if (ignoreComments.some((regex) => regex.test(text))) return;
 
-    return { commenterId, text };
+    return { type: eventKey, commenterId, text };
   }
 
   private static getOpenedData(
@@ -66,6 +68,7 @@ class BitbucketHelper {
   ): Omit<PullRequestOpened, keyof PullRequestMeta> {
     const {
       pullRequest: { reviewers: rawReviewers },
+      eventKey,
     } = event;
 
     const reviewerIds: string[] = rawReviewers.map(
@@ -74,7 +77,7 @@ class BitbucketHelper {
       }
     );
 
-    return { reviewerIds };
+    return { type: eventKey, reviewerIds };
   }
 
   public static getData(event: any): PullRequestData | undefined {

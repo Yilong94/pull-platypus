@@ -29,11 +29,8 @@ class SlackHelper {
     this.bitbucketToSlackMap = bitbucketToSlackMap;
   }
 
-  public async sendMessage(
-    prEvent: PullRequestEvent,
-    prData: PullRequestData
-  ): Promise<void> {
-    const { message, receivedUser } = this.genMessage(prEvent, prData);
+  public async sendMessage(prData: PullRequestData): Promise<void> {
+    const { message, receivedUser } = this.genMessage(prData);
 
     if (Array.isArray(message) && Array.isArray(receivedUser)) {
       message.forEach(async (msg, idx) => {
@@ -70,7 +67,6 @@ class SlackHelper {
   }
 
   private genMessage(
-    prEvent: PullRequestEvent,
     prData: PullRequestData
   ): {
     message: IncomingWebhookSendArguments | IncomingWebhookSendArguments[];
@@ -79,21 +75,21 @@ class SlackHelper {
     let message: IncomingWebhookSendArguments | IncomingWebhookSendArguments[];
     let receivedUser: string | string[];
 
-    switch (prEvent) {
+    switch (prData.type) {
       case PullRequestEvent.APPROVED:
       case PullRequestEvent.UNAPPROVED:
       case PullRequestEvent.NEEDS_WORK:
-        message = this.genSlackMessageDecision(prData as SlackMessageDecision);
+        message = this.genSlackMessageDecision(prData);
         receivedUser = this.getSlackUser(prData.authorId);
         break;
 
       case PullRequestEvent.COMMENTDS_ADDED:
-        message = this.genSlackMessageComment(prData as SlackMessageComment);
+        message = this.genSlackMessageComment(prData);
         receivedUser = this.getSlackUser(prData.authorId);
         break;
 
       case PullRequestEvent.OPENED:
-        const { reviewerIds, ...rest } = prData as PullRequestOpened;
+        const { reviewerIds, ...rest } = prData;
         message = reviewerIds.map((reviewerId) => {
           return this.genSlackMessageRequest({ ...rest, reviewerId });
         });

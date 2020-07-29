@@ -21,16 +21,22 @@ export interface PullRequestMeta {
 }
 
 export interface PullRequestDecision extends PullRequestMeta {
+  type:
+    | PullRequestEvent.APPROVED
+    | PullRequestEvent.UNAPPROVED
+    | PullRequestEvent.NEEDS_WORK;
   reviewerId: string;
   status: PullRequestStatus;
 }
 
 export interface PullRequestComment extends PullRequestMeta {
+  type: PullRequestEvent.COMMENTDS_ADDED;
   commenterId: string;
   text: string;
 }
 
 export interface PullRequestOpened extends PullRequestMeta {
+  type: PullRequestEvent.OPENED;
   reviewerIds: string[];
 }
 

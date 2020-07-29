@@ -110,7 +110,7 @@ const main = async (event: any) => {
     const data = BitbucketHelper.getData(payload);
 
     // Send slack message
-    if (data) await slackHelper.sendMessage(payload.eventKey, data);
+    if (data) await slackHelper.sendMessage(data);
 
     message = "Webhook call successful";
     response = {
