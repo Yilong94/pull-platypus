@@ -98,6 +98,8 @@ class SlackHelper {
         receivedUser = receiverIds.map((receiverId) =>
           this.getSlackUser(receiverId)
         );
+        console.log("message", message);
+        console.log("receivedUser", receivedUser);
         break;
       }
 
