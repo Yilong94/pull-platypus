@@ -1,6 +1,6 @@
 # pull-platypus
 
-<img src="https://github.com/Yilong94/pull-platypus/blob/master/assets/images/pull_platypus_icon.png" width="350px" alt="Image of Pull Platypus">
+<img src="assets/images/pull_platypus_icon.png" width="350px" alt="Image of Pull Platypus">
 
 A Pull request reminder for Bitbucket server with Slack integration inspired by Github's [Pull Panda](https://pullreminders.com/)
 
@@ -22,13 +22,13 @@ When an event occurs in Bitbucket Server, Bitbucket will fire an API call with a
 
 Currently, this library supports the following types of notifications:
 * Request for PR to be reviewed --> sent to PR reviewer(s)
-<img src="https://github.com/Yilong94/pull-platypus/blob/master/assets/images/pull-platypus-pr-opened.png" width="350px" alt="Image of Pull Platypus">
+<img src="assets/images/pull-platypus-pr-opened.png" width="350px" alt="Image of Pull Platypus">
 
 * Comments made in PR --> sent to PR author & PR reviewer(s) (except author of comment)
-<img src="https://github.com/Yilong94/pull-platypus/blob/master/assets/images/pull-platypus-pr-comment.png" width="350px" alt="Image of Pull Platypus">
+<img src="assets/images/pull-platypus-pr-comment.png" width="350px" alt="Image of Pull Platypus">
 
 * Decision of PR reviewer (approved/rejected/needs work) --> sent to PR author
-<img src="https://github.com/Yilong94/pull-platypus/blob/master/assets/images/pull-platypus-pr-decision.png" width="350px" alt="Image of Pull Platypus">
+<img src="assets/images/pull-platypus-pr-decision.png" width="350px" alt="Image of Pull Platypus">
 
 For more information, you can view the following resources:
 * [Bitbucket: Managing webhooks in Bitbucket Server](https://confluence.atlassian.com/bitbucketserver/managing-webhooks-in-bitbucket-server-938025878.html#ManagingwebhooksinBitbucketServer-creatingwebhooks)
