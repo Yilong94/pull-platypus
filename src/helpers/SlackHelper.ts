@@ -86,12 +86,10 @@ class SlackHelper {
 
       case PullRequestEvent.COMMENTS_ADDED: {
         const { authorId, commenterId, reviewerIds } = prData;
-        console.log("three ids", authorId, commenterId, reviewerIds);
         // No need to send notification to commenter
         const receiverIds = [authorId, ...reviewerIds].filter(
           (id) => id !== commenterId
         );
-        console.log("receiverIds", receiverIds);
         message = Array(receiverIds.length).fill(
           this.genSlackMessageComment(prData)
         );
