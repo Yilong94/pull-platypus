@@ -2,7 +2,6 @@ import { IncomingWebhook, IncomingWebhookSendArguments } from "@slack/webhook";
 import {
   PullRequestData,
   PullRequestEvent,
-  PullRequestOpened,
   PullRequestStatus,
 } from "../interfaces/PullRequest";
 import {
