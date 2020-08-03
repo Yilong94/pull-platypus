@@ -85,7 +85,7 @@ class SlackHelper {
         break;
       }
 
-      case PullRequestEvent.COMMENTDS_ADDED: {
+      case PullRequestEvent.COMMENTS_ADDED: {
         const { authorId, commenterId, reviewerIds } = prData;
         console.log("three ids", authorId, commenterId, reviewerIds);
         // No need to send notification to commenter

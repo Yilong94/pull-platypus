@@ -3,7 +3,7 @@ export enum PullRequestEvent {
   APPROVED = "pr:reviewer:approved",
   UNAPPROVED = "pr:reviewer:unapproved",
   NEEDS_WORK = "pr:reviewer:needs_work",
-  COMMENTDS_ADDED = "pr:comment:added",
+  COMMENTS_ADDED = "pr:comment:added",
 }
 
 export enum PullRequestStatus {
@@ -30,7 +30,7 @@ export interface PullRequestDecision extends PullRequestMeta {
 }
 
 export interface PullRequestComment extends PullRequestMeta {
-  type: PullRequestEvent.COMMENTDS_ADDED;
+  type: PullRequestEvent.COMMENTS_ADDED;
   commenterId: string;
   text: string;
   reviewerIds: string[];

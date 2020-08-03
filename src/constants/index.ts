@@ -9,7 +9,7 @@ export const PULL_REQUEST_EVENTS = [
   PullRequestEvent.UNAPPROVED,
   PullRequestEvent.NEEDS_WORK,
   PullRequestEvent.OPENED,
-  PullRequestEvent.COMMENTDS_ADDED,
+  PullRequestEvent.COMMENTS_ADDED,
 ];
 
 interface BuildMessage {

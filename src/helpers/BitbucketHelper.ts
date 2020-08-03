@@ -99,7 +99,7 @@ class BitbucketHelper {
       case PullRequestEvent.UNAPPROVED:
         mainData = this.getStatusData(event);
         break;
-      case PullRequestEvent.COMMENTDS_ADDED:
+      case PullRequestEvent.COMMENTS_ADDED:
         mainData = this.getCommentData(event);
         break;
       case PullRequestEvent.OPENED:
