@@ -1,4 +1,7 @@
 # pull-platypus
+
+<img src="https://github.com/Yilong94/pull-platypus/blob/master/assets/images/pull_platypus_icon.png" width="350px" alt="Image of Pull Platypus">
+
 A Pull request reminder for Bitbucket server with Slack integration inspired by Github's [Pull Panda](https://pullreminders.com/)
 
 Notifications on pull request activities are currently sent to emails, which are not very visible and results in delay time in the development process. **Pull-platypus** uses Bitbucket Server's [webhook](https://confluence.atlassian.com/bitbucketserver/managing-webhooks-in-bitbucket-server-938025878.html#ManagingwebhooksinBitbucketServer-creatingwebhooks) to alert users to pull request events via Slack direct message. Because the current codebase is optimized for deployment on a AWS lambda function integrated with AWS API gateway, extra steps are required to test the program locally.
