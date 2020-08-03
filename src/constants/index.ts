@@ -59,16 +59,18 @@ export const ignoreComments = [
 export const mockDecisionPayload = {
   eventKey: "pr:reviewer:approved",
   pullRequest: {
-    title: "Test title",
+    title: "Name of Pull Request",
     fromRef: {
       repository: {
-        name: "test-repo",
-        project: "test-project",
+        name: "name-of-repository",
+        project: {
+          name: "PROJECT NAME",
+        },
       },
     },
     author: {
       user: {
-        emailAddress: "tan_yi_long@tech.gov.sg",
+        emailAddress: "mr_platypus@gmail.com",
       },
     },
     links: {
@@ -77,7 +79,7 @@ export const mockDecisionPayload = {
   },
   participant: {
     user: {
-      emailAddress: "tan_yi_long@tech.gov.sg",
+      emailAddress: "mr_platypus@gmail.com",
     },
     status: "APPROVED",
   },
@@ -86,22 +88,24 @@ export const mockDecisionPayload = {
 export const mockCommentPayload = {
   eventKey: "pr:comment:added",
   pullRequest: {
-    title: "Test title",
+    title: "Name of Pull Request",
     fromRef: {
       repository: {
-        name: "test-repo",
-        project: "test-project",
+        name: "name-of-repository",
+        project: {
+          name: "PROJECT NAME",
+        },
       },
     },
     author: {
       user: {
-        emailAddress: "tan_yi_long@tech.gov.sg",
+        emailAddress: "mr_platypus@gmail.com",
       },
     },
     reviewers: [
       {
         user: {
-          emailAddress: "chan_win_hung@htx.gov.sg",
+          emailAddress: "mr_platypus@gmail.com",
         },
       },
     ],
@@ -112,7 +116,37 @@ export const mockCommentPayload = {
   comment: {
     text: "This is a comment!",
     author: {
-      emailAddress: "chan_win_hung@htx.gov.sg",
+      emailAddress: "mr_platypus@gmail.com",
+    },
+  },
+};
+
+export const mockOpenPayload = {
+  eventKey: "pr:opened",
+  pullRequest: {
+    title: "Name of Pull Request",
+    fromRef: {
+      repository: {
+        name: "name-of-repository",
+        project: {
+          name: "PROJECT NAME",
+        },
+      },
+    },
+    author: {
+      user: {
+        emailAddress: "mr_platypus@gmail.com",
+      },
+    },
+    reviewers: [
+      {
+        user: {
+          emailAddress: "mr_platypus@gmail.com",
+        },
+      },
+    ],
+    links: {
+      self: [{ href: "www.google.com" }],
     },
   },
 };
