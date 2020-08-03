@@ -34,7 +34,6 @@ class SlackHelper {
     if (Array.isArray(message) && Array.isArray(receivedUser)) {
       message.forEach(async (msg, idx) => {
         if (!receivedUser[idx]) throw new Error("User not found");
-        console.log(`Sending message ${msg} to ${receivedUser[idx]}`);
         await this.send(receivedUser[idx], msg);
       });
     } else if (
