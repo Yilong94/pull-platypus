@@ -1,8 +1,16 @@
 import { IncomingWebhookSendArguments } from "@slack/webhook";
+import { PullRequestEvent } from "../interfaces/PullRequest";
 
 export const PR_REVIEW_STATUS = "PR REVIEW STATUS";
 export const PR_COMMENT = "PR COMMENT";
 export const PR_REVIEW_REQUEST = "PR REVIEW REQUEST";
+export const PULL_REQUEST_EVENTS = [
+  PullRequestEvent.APPROVED,
+  PullRequestEvent.UNAPPROVED,
+  PullRequestEvent.NEEDS_WORK,
+  PullRequestEvent.OPENED,
+  PullRequestEvent.COMMENTDS_ADDED,
+];
 
 interface BuildMessage {
   messageTitle: string;

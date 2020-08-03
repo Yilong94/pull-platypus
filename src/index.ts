@@ -3,6 +3,7 @@ import crypto from "crypto";
 import BitbucketHelper from "./helpers/BitbucketHelper";
 import SlackHelper from "./helpers/SlackHelper";
 import awsParamStore from "aws-param-store";
+import { PULL_REQUEST_EVENTS } from "./constants";
 
 dotenv.config();
 
@@ -104,6 +105,19 @@ const main = async (event: any) => {
   try {
     const payload = JSON.parse(body);
     console.log("Request Body: ", body);
+
+    // Ignore unrecognised event keys
+    const { eventKey } = payload;
+    if (!PULL_REQUEST_EVENTS.includes(eventKey)) {
+      message = "Event key not recognised";
+      console.log(message);
+      return {
+        isBase64Encoded: false,
+        statusCode: 200,
+        body: JSON.stringify({ message }),
+      };
+    }
+
     const slackHelper = new SlackHelper(
       webhookUrl,
       JSON.parse(bitbucketToSlackMap)
